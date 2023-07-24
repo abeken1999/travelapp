@@ -14,13 +14,12 @@ const TravelPlanner = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
-  const apiResponses = ["1.", "2.", "3."];
 
   // ユーザーが選択した情報を送信
   const onSubmit = async (data: FormData) => {
     setLoading(true);
 
-    const API_KEY = "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";
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
     const URL = "https://api.openai.com/v1/chat/completions";
 
     try {
@@ -53,7 +52,7 @@ const TravelPlanner = () => {
         }
       );
 
-      // 改行を挿入する処理
+      // 改行を挿入する処理(※未完成)
       let resultContent = response.data.choices[0].message.content;
       resultContent = resultContent.replace(/(\d+)\./g, "\n$1.");
 
